@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import fr.esgi.fx.avis.model.Editeur;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,13 +20,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
 public class EditeurEntity {
+
+	public EditeurEntity(Editeur editeur) {
+		this.nom = editeur.getNom();
+		this.dateDeCreation = editeur.getDateDeCreation();
+	}
 
 	@Id
 	// On demande à H2 de choisir un id pour chaque éditeur
