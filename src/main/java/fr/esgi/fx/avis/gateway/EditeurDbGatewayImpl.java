@@ -1,5 +1,7 @@
 package fr.esgi.fx.avis.gateway;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import fr.esgi.fx.avis.entity.EditeurEntity;
@@ -15,9 +17,15 @@ public class EditeurDbGatewayImpl
     EditeurRepository editeurRepository;
 
     @Override
-    public void createEditeur(Editeur editeur) {
+    public void saveEditeur(Editeur editeur) {
         EditeurEntity editeurEntity = new EditeurEntity(editeur);
         editeurRepository.save(editeurEntity);
+    }
+
+    @Override
+    public List<Editeur> recupererEditeurs() {
+        return editeurRepository.findAll().stream()
+                .map(EditeurEntity::toEditeur).toList();
     }
 
 }

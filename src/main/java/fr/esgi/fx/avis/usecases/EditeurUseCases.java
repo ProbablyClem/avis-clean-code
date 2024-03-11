@@ -1,5 +1,7 @@
 package fr.esgi.fx.avis.usecases;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import fr.esgi.fx.avis.factory.EditeurFactory;
@@ -16,6 +18,10 @@ public class EditeurUseCases {
 
     public void createEditeur(String name) {
         Editeur editeur = editeurFactory.createEditeur(name);
-        editeurDbGateway.createEditeur(editeur);
+        editeurDbGateway.saveEditeur(editeur);
+    }
+
+    public List<Editeur> recupererEditeurs() {
+        return editeurDbGateway.recupererEditeurs();
     }
 }

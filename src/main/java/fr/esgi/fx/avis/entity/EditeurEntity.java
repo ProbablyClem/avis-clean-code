@@ -45,4 +45,8 @@ public class EditeurEntity {
 	private String nom;
 
 	private LocalDate dateDeCreation;
+
+	public Editeur toEditeur() {
+		return new Editeur(this.nom, this.dateDeCreation);
+	}
 }
