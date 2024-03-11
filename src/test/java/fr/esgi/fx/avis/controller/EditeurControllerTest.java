@@ -1,6 +1,5 @@
 package fr.esgi.fx.avis.controller;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -18,8 +17,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import fr.esgi.fx.avis.service.EditeurService;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -29,9 +26,6 @@ class EditeurControllerTest {
 	// Angular
 	@Autowired
 	private MockMvc mockMvc;
-
-	@Autowired
-	EditeurService editeurService;
 
 	@Test
 	@WithMockUser(roles = "ADMIN")
