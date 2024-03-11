@@ -6,9 +6,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.esgi.fx.avis.entity.EditeurEntity;
-import fr.esgi.fx.avis.initialisation.AjoutDonneesInitiales;
-import fr.esgi.fx.avis.repository.EditeurRepository;
 import fr.esgi.fx.avis.usecases.EditeurUseCases;
 import lombok.AllArgsConstructor;
 
