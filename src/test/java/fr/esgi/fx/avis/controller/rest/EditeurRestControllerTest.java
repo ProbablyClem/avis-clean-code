@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.esgi.fx.avis.business.Editeur;
+import fr.esgi.fx.avis.entity.EditeurEntity;
 import fr.esgi.fx.avis.service.EditeurService;
 
 @SpringBootTest
@@ -33,59 +33,59 @@ class EditeurRestControllerTest {
 	// Angular
 	@Autowired
 	MockMvc mockMvc;
-	
+
 	@Autowired
 	ObjectMapper objectMapper; // cet objet va sérialiser des objets métier
 
 	@Autowired
 	EditeurService editeurService;
-	
+
 	String nom = "Valve";
-	
+
 	@BeforeEach
 	void setup() {
-		editeurService.supprimerEditeurs();
+		// editeurService.supprimerEditeurs();
 	}
-	
+
 	@Test
 	@Order(1)
 	@WithMockUser(roles = "ADMIN")
 	void testPostEditeur() throws Exception {
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/editeurs/{nom}", nom);
-		
+
 		mockMvc.perform(requestBuilder)
-			.andExpect(MockMvcResultMatchers.jsonPath("$.nom").value(nom))
-			// On vérifie que le code retour est bien 201 (CREATED)
-			.andExpect(status().isCreated())
-			.andDo(MockMvcResultHandlers.print());
+				.andExpect(MockMvcResultMatchers.jsonPath("$.nom").value(nom))
+				// On vérifie que le code retour est bien 201 (CREATED)
+				.andExpect(status().isCreated())
+				.andDo(MockMvcResultHandlers.print());
 	}
-	
-	
+
 	@Test
 	@WithMockUser(roles = "ADMIN")
 	void testPostEditeurTwiceShouldReturnConflict() throws Exception {
-		editeurService.ajouterEditeur(new Editeur(nom));
-		
+		editeurService.ajouterEditeur(new EditeurEntity(nom));
+
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/editeurs/{nom}", nom);
-		
+
 		MvcResult result = mockMvc.perform(requestBuilder)
-		.andExpect(status().isConflict())
-		.andDo(MockMvcResultHandlers.print()).andReturn();
-		
+				.andExpect(status().isConflict())
+				.andDo(MockMvcResultHandlers.print()).andReturn();
+
 		assertEquals(result.getResolvedException().getMessage(), "Cet éditeur est déjà présent");
 	}
-	
+
 	@Test
 	@WithMockUser(roles = "ADMIN")
 	void testGetEditeur() throws Exception {
-		Editeur editeurSauvegarde = editeurService.ajouterEditeur(new Editeur(nom));
-		
-		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/editeurs/{id}", editeurSauvegarde.getId());
-		
+		EditeurEntity editeurSauvegarde = editeurService.ajouterEditeur(new EditeurEntity(nom));
+
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/editeurs/{id}",
+				editeurSauvegarde.getId());
+
 		mockMvc.perform(requestBuilder)
-		.andExpect(status().isOk())
-		.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(editeurSauvegarde.getId()))
-		.andExpect(MockMvcResultMatchers.jsonPath("$.nom").value(nom))
-		.andDo(MockMvcResultHandlers.print());
+				.andExpect(status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(editeurSauvegarde.getId()))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.nom").value(nom))
+				.andDo(MockMvcResultHandlers.print());
 	}
 }

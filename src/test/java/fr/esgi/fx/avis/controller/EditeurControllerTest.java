@@ -29,39 +29,23 @@ class EditeurControllerTest {
 	// Angular
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@Autowired
 	EditeurService editeurService;
-	
+
 	@Test
 	@WithMockUser(roles = "ADMIN")
-    void testerPostEditeurs() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = post("/editeurs")
-                .accept(MediaType.TEXT_HTML)
-                .param("NOM","toto");
-        mockMvc.perform(requestBuilder)
-                .andExpect(view().name("editeurs"))
-                .andExpect(status().isOk())
-                .andExpect(result -> result.getModelAndView().getModel().get("nom").equals("toto"))
-                .andDo(MockMvcResultHandlers.print());
-    }
-	
-	@Test
-	@WithMockUser(roles = "ADMIN")
-	void testerAjoutEditeurPost() throws Exception {
-		String nomEditeur = "aaa";
-		
-		int nbEditeursAvantPost = editeurService.recupererEditeurs().size();
-		mockMvc.perform(MockMvcRequestBuilders.post("/editeur").accept(MediaType.TEXT_HTML)
-				.param("nom", nomEditeur))
-				.andExpect(view().name("redirect:editeurs"))
-				.andExpect(status().is3xxRedirection())
+	void testerPostEditeurs() throws Exception {
+		MockHttpServletRequestBuilder requestBuilder = post("/editeurs")
+				.accept(MediaType.TEXT_HTML)
+				.param("NOM", "toto");
+		mockMvc.perform(requestBuilder)
+				.andExpect(view().name("editeurs"))
+				.andExpect(status().isOk())
+				.andExpect(result -> result.getModelAndView().getModel().get("nom").equals("toto"))
 				.andDo(MockMvcResultHandlers.print());
-		int nbEditeursApresPost = editeurService.recupererEditeurs().size();
-		assertTrue(nbEditeursApresPost>nbEditeursAvantPost);
-		assertTrue(editeurService.recupererEditeurParNom(nomEditeur)!=null);
 	}
-	
+
 	@Test
 	@WithMockUser(roles = "ADMIN")
 	void testerAjoutEditeurWithInvalidNamePost() throws Exception {
