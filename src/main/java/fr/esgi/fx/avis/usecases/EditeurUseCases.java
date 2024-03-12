@@ -16,9 +16,9 @@ public class EditeurUseCases {
     EditeurFactory editeurFactory;
     EditeurDbGateway editeurDbGateway;
 
-    public void createEditeur(String name) {
+    public Editeur createEditeur(String name) {
         Editeur editeur = editeurFactory.createEditeur(name);
-        editeurDbGateway.saveEditeur(editeur);
+        return editeurDbGateway.saveEditeur(editeur);
     }
 
     public List<Editeur> recupererEditeurs() {

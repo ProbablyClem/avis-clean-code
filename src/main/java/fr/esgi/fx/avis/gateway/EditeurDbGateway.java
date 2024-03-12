@@ -5,7 +5,7 @@ import java.util.List;
 import fr.esgi.fx.avis.model.Editeur;
 
 public interface EditeurDbGateway {
-    void saveEditeur(Editeur editeur);
+    Editeur saveEditeur(Editeur editeur);
 
     List<Editeur> recupererEditeurs();
 }

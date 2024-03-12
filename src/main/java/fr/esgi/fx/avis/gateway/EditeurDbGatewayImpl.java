@@ -17,9 +17,9 @@ public class EditeurDbGatewayImpl
     EditeurRepository editeurRepository;
 
     @Override
-    public void saveEditeur(Editeur editeur) {
+    public Editeur saveEditeur(Editeur editeur) {
         EditeurEntity editeurEntity = new EditeurEntity(editeur);
-        editeurRepository.save(editeurEntity);
+        return editeurRepository.save(editeurEntity).toEditeur();
     }
 
     @Override
