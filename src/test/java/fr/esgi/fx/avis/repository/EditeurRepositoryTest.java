@@ -2,12 +2,15 @@ package fr.esgi.fx.avis.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.cglib.core.Local;
 import org.springframework.test.context.jdbc.Sql;
 
 import fr.esgi.fx.avis.entity.EditeurEntity;
@@ -31,6 +34,7 @@ class EditeurRepositoryTest {
 		String nomEditeur = "test";
 		EditeurEntity editeur = new EditeurEntity();
 		editeur.setNom(nomEditeur);
+		editeur.setDateDeCreation(LocalDate.now());
 
 		EditeurEntity editeurEnregistre = editeurRepository.save(editeur);
 

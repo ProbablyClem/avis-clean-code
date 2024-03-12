@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Entity
+@Entity(name = "editeur")
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
